@@ -1,11 +1,9 @@
 package com.example.viewpagerfragment.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.List;
 
@@ -20,6 +18,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
     public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
         super(fm);
+        this.fragments = fragments;
+    }
+
+    public MyPagerAdapter(@NonNull FragmentManager fm, int behavior, List<Fragment> fragments) {
+        super(fm, behavior);
         this.fragments = fragments;
     }
 

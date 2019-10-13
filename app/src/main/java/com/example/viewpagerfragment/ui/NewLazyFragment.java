@@ -12,15 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 /**
- * @description: 懒加载Fragment
+ * @description: 懒加载Fragment的新实现方式
  * @author: zhukai
- * @date: 2019/4/2 8:58
+ * @date: 2019/10/12 13:23
  */
-public abstract class LazyFragment extends Fragment {
+public abstract class NewLazyFragment extends Fragment {
 
     private Context mContext;
-    private boolean hasViewCreated; // 视图是否已加载
-    private boolean isFirstLoad; // 是否首次加载
+    private boolean isFirstLoad = true; // 是否第一次加载
 
     private ProgressDialog mProgressDialog; // 加载进度对话框
 
@@ -33,14 +32,19 @@ public abstract class LazyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        hasViewCreated = true;
-        isFirstLoad = true;
         View view = LayoutInflater.from(mContext).inflate(getContentViewId(), null);
         initView(view);
-        initData();
-        initEvent();
-        lazyLoad();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstLoad) {
+            initData();
+            initEvent();
+            isFirstLoad = false;
+        }
     }
 
     /**
@@ -71,29 +75,6 @@ public abstract class LazyFragment extends Fragment {
      */
     protected void initEvent() {
 
-    }
-
-    /**
-     * 懒加载
-     */
-    protected void onLazyLoad() {
-
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            lazyLoad();
-        }
-    }
-
-    private void lazyLoad() {
-        if (!hasViewCreated || !isFirstLoad || !getUserVisibleHint()) {
-            return;
-        }
-        isFirstLoad = false;
-        onLazyLoad();
     }
 
     /**

@@ -2,16 +2,16 @@ package com.example.viewpagerfragment.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viewpagerfragment.R;
 import com.example.viewpagerfragment.adapter.ListAdapter;
@@ -30,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
  * @author: zhukai
  * @date: 2019/3/31 20:39
  */
-public class ProjectFragment extends LazyFragment {
+public class ProjectFragment extends NewLazyFragment {
 
     private RecyclerView mRecyclerView;
     private ListAdapter mAdapter;
@@ -79,22 +79,6 @@ public class ProjectFragment extends LazyFragment {
     @Override
     protected void initData() {
         super.initData();
-    }
-
-    /**
-     * 初始化事件
-     */
-    @Override
-    protected void initEvent() {
-        super.initEvent();
-    }
-
-    /**
-     * 懒加载
-     */
-    @Override
-    protected void onLazyLoad() {
-        super.onLazyLoad();
         mData = new ArrayList<>();
         showProgressDialog("请稍后");
         // 模拟数据的延迟加载
@@ -112,6 +96,14 @@ public class ProjectFragment extends LazyFragment {
                         hideProgressDialog();
                     }
                 });
+    }
+
+    /**
+     * 初始化事件
+     */
+    @Override
+    protected void initEvent() {
+        super.initEvent();
     }
 
     @Override

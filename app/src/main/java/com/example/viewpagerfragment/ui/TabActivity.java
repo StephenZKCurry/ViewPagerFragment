@@ -1,14 +1,16 @@
 package com.example.viewpagerfragment.ui;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.viewpagerfragment.R;
 import com.example.viewpagerfragment.adapter.MyPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,9 +64,10 @@ public class TabActivity extends AppCompatActivity {
         mFragments.add(knowledgeSystemFragment);
         mFragments.add(projectFragment);
 
-        mAdapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
+        mAdapter = new MyPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                mFragments);
         mViewPager.setAdapter(mAdapter);
-//        mViewPager.setOffscreenPageLimit(mFragments.size());
+        mViewPager.setOffscreenPageLimit(mFragments.size());
         // 关联ViewPager
         mTabLayout.setupWithViewPager(mViewPager);
         // mTabLayout.setupWithViewPager方法内部会remove所有的tabs，这里重新设置一遍tabs的text，否则tabs的text不显示
