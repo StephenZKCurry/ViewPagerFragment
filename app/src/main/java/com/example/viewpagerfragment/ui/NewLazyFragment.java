@@ -38,6 +38,12 @@ public abstract class NewLazyFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isFirstLoad = true;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         if (isFirstLoad) {
